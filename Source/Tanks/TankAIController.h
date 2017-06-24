@@ -15,10 +15,13 @@ class TANKS_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-protected:
-	void BeginPlay() override;
-
 public:
+	void AimToPlayerLocation() const;
+
+protected:
+	void Tick(float) override;
+
+private:
 	ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;
 	

@@ -16,9 +16,9 @@ void ATankPlayerController::BeginPlay()
 	}	
 }
 
-void ATankPlayerController::Tick(float DeltaTime)
+void ATankPlayerController::Tick(float deltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(deltaTime);
 	AimTowardsCrosshair();
 }
 
@@ -44,7 +44,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	FHitResult outHitResult;
 	GetWorld()->LineTraceSingleByChannel(outHitResult, rayStart, rayEnd, ECollisionChannel::ECC_PhysicsBody);	
-	UE_LOG(LogTemp, Warning, TEXT("Hit location %s"), *outHitResult.Location.ToString())
+	tank->AimAt(outHitResult.Location);	
 	//if (outHitResult.GetActor())
 	//{
 	//	UE_LOG(LogTemp, Warning, TEXT("Hit object %s"), *outHitResult.GetActor()->GetName())

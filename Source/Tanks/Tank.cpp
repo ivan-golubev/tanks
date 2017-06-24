@@ -17,6 +17,11 @@ void ATank::BeginPlay()
 	Super::BeginPlay();	
 }
 
+void ATank::AimAt(FVector target)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *GetName(), *target.ToString())
+}
+
 // Called every frame
 void ATank::Tick(float DeltaTime)
 {
