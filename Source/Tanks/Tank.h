@@ -20,7 +20,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	static const float TANK_SHOOT_DISTANCE;
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

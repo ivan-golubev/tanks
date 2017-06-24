@@ -3,8 +3,6 @@
 #include "Tanks.h"
 #include "Tank.h"
 
-const float ATank::TANK_SHOOT_DISTANCE = 1000.0f;
-
 // Sets default values
 ATank::ATank()
 {

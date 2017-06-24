@@ -34,27 +34,18 @@ void ATankPlayerController::AimTowardsCrosshair()
 	
 	int32 screenSizeX, screenSizeY;
 	GetViewportSize(screenSizeX, screenSizeY);
+	FVector2D screenLocation(screenSizeX*CrossHairXLocation, screenSizeY*CrossHairYLocation);	
 
-	FVector2D screenLocation(screenSizeX*CrossHairXLocation, screenSizeY*CrossHairYLocation);
-	UE_LOG(LogTemp, Warning, TEXT("Screen location is %s"), *screenLocation.ToString())
+	FVector tmp, lookDirection;
+	DeprojectScreenPositionToWorld(screenLocation.X, screenLocation.Y, tmp, lookDirection);
 
-	FVector rayStart, rayEnd;
-	GetRayCastParams(rayStart, rayEnd);
+	FVector rayStart = PlayerCameraManager->GetCameraLocation();	
+	FVector rayEnd = rayStart + lookDirection * lineTraceRange;
 
 	FHitResult outHitResult;
-	GetWorld()->LineTraceSingleByChannel(outHitResult, rayStart, rayEnd, ECollisionChannel::ECC_Destructible);
+	GetWorld()->LineTraceSingleByChannel(outHitResult, rayStart, rayEnd, ECollisionChannel::ECC_PhysicsBody);	
 	if (outHitResult.GetActor())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Hit object %s"), *outHitResult.GetActor()->GetName())
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("Nothing"))
-	}
-}
-
-void ATankPlayerController::GetRayCastParams(FVector& outStart, FVector& outEnd) const
-{
-	FRotator playerRotation;
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(outStart, playerRotation);
-	outEnd = outStart + playerRotation.Vector() * ATank::TANK_SHOOT_DISTANCE;
 }

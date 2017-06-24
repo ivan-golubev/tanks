@@ -26,8 +26,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5f;
 	UPROPERTY(EditAnywhere)
-	float CrossHairYLocation = 0.33333f;
+	float CrossHairYLocation = 0.5f;
+	UPROPERTY(EditAnywhere)
+	float lineTraceRange = 1000000.0f; // 10 kilometers
 
 	void AimTowardsCrosshair(); // rotate the barrel towards the crosshair
-	void GetRayCastParams(FVector& outStart, FVector& outEnd) const;
 };
