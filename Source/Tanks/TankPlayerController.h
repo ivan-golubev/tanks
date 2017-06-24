@@ -17,9 +17,17 @@ class TANKS_API ATankPlayerController : public APlayerController
 	
 protected:	
 	void BeginPlay() override;
+	void Tick(float) override;
 
 public:
 	ATank* GetControlledTank() const;
-	
-	
+		
+private:	
+	UPROPERTY(EditAnywhere)
+	float CrossHairXLocation = 0.5f;
+	UPROPERTY(EditAnywhere)
+	float CrossHairYLocation = 0.33333f;
+
+	void AimTowardsCrosshair(); // rotate the barrel towards the crosshair
+	void GetRayCastParams(FVector& outStart, FVector& outEnd) const;
 };
