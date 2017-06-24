@@ -44,8 +44,9 @@ void ATankPlayerController::AimTowardsCrosshair()
 
 	FHitResult outHitResult;
 	GetWorld()->LineTraceSingleByChannel(outHitResult, rayStart, rayEnd, ECollisionChannel::ECC_PhysicsBody);	
-	if (outHitResult.GetActor())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit object %s"), *outHitResult.GetActor()->GetName())
-	}
+	UE_LOG(LogTemp, Warning, TEXT("Hit location %s"), *outHitResult.Location.ToString())
+	//if (outHitResult.GetActor())
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Hit object %s"), *outHitResult.GetActor()->GetName())
+	//}
 }
