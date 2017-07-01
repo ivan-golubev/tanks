@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+// Forward declaration
+class UTankBarrel;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKS_API UTankAimingComponent : public UActorComponent
@@ -13,7 +15,9 @@ class TANKS_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 private:
-	UStaticMeshComponent* barrel = nullptr;
+	UTankBarrel* barrel = nullptr;
+
+	void MoveBarrel(const FVector& AimDirection);
 
 protected:
 	// Called when the game starts
@@ -25,7 +29,7 @@ public:
 	void AimAt(const FVector& hitLocation, float launchSpeed);
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-	void SetBarrel(UStaticMeshComponent*);
+	void SetBarrel(UTankBarrel*);
 
 	
 };

@@ -35,7 +35,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void ATank::SetBarrel(UStaticMeshComponent* b)
+void ATank::SetBarrel(UTankBarrel* b)
 {
 	TankAimingComponent->SetBarrel(b);
 }

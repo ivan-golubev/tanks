@@ -8,6 +8,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+class UTankBarrel;
+
 UCLASS()
 class TANKS_API ATank : public APawn
 {
@@ -23,7 +25,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrel(UStaticMeshComponent* b);
+	void SetBarrel(UTankBarrel* b);
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;

@@ -1,5 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankBarrel.h"
+
 #include "Tanks.h"
 #include "TankAimingComponent.h"
 
@@ -14,6 +16,15 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+
+void UTankAimingComponent::MoveBarrel(const FVector& AimDirection)
+{
+	if (!barrel) { return; }
+	// set Rotation.Yaw of the TurretMesh [-180, 180]
+	// set Rotation.Pitch of the Barrel [-10, 10]
+	FRotator deltaRotator = AimDirection.Rotation() - barrel->GetForwardVector().Rotation();
+	barrel->Elevate(5);
+}
 
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
@@ -52,7 +63,8 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString())
+		MoveBarrel(AimDirection);
 	}
 }
 
-void UTankAimingComponent::SetBarrel(UStaticMeshComponent* b) { barrel = b; }
+void UTankAimingComponent::SetBarrel(UTankBarrel* b) { barrel = b; }
