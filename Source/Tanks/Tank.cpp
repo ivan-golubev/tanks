@@ -19,7 +19,7 @@ void ATank::BeginPlay()
 
 void ATank::AimAt(FVector target)
 {
-	TankAimingComponent->AimAt(target);
+	TankAimingComponent->AimAt(target, ProjectileLaunchSpeed);
 }
 
 // Called every frame
@@ -33,5 +33,10 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void ATank::SetBarrel(UStaticMeshComponent* b)
+{
+	TankAimingComponent->SetBarrel(b);
 }
 

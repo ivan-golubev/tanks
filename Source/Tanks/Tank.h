@@ -21,9 +21,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrel(UStaticMeshComponent* b);
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float ProjectileLaunchSpeed = 100000.0f; // 1000 m/s
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;		
 	
