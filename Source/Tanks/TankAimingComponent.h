@@ -9,6 +9,7 @@
 // Forward declaration
 class UTankBarrel;
 
+// Holds barrel's properties
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKS_API UTankAimingComponent : public UActorComponent
 {

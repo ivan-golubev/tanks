@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(meta = (BlueprintSpawnableComponent))
 class TANKS_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -18,6 +18,10 @@ public:
 	void Elevate(float DegreesPerSecond);
 	
 private:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxDegreesPerSecond = 20;
+	UPROPERTY(EditAnywhere, Category = Setup)
+	float MinBarrelElevation = 0.0f;
+	UPROPERTY(EditAnywhere, Category = Setup)
+	float MaxBarrelElevation = 20.0f;
 };
