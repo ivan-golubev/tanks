@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tanks.h"
+#include "Tank.h"
 #include "TankAIController.h"
 #include "TankPlayerController.h"
 
@@ -31,7 +32,7 @@ void ATankAIController::AimToPlayerLocation() const
 	ATank* controlledAITank = GetControlledTank();
 	if (playerTank != nullptr && controlledAITank != nullptr)
 	{
-		controlledAITank->AimAt(playerTank->GetActorLocation());
+		//controlledAITank->AimAt(playerTank->GetActorLocation());
 	}
 	else
 	{

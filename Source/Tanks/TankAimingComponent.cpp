@@ -1,8 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "TankBarrel.h"
 
 #include "Tanks.h"
+#include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -20,10 +21,18 @@ UTankAimingComponent::UTankAimingComponent()
 void UTankAimingComponent::MoveBarrel(const FVector& AimDirection)
 {
 	if (!barrel) { return; }
-	// set Rotation.Yaw of the TurretMesh [-180, 180]
-	// set Rotation.Pitch of the Barrel [-10, 10]
+	// set Rotation.Pitch of the Barrel
 	FRotator deltaRotator = AimDirection.Rotation() - barrel->GetForwardVector().Rotation();
-	barrel->Elevate(5);
+	barrel->Elevate(deltaRotator.Pitch);
+}
+
+void UTankAimingComponent::MoveTurret(const FVector& AimDirection)
+{
+	if (!turret) { return; }	
+	// set Rotation.Yaw of the TurretMesh
+	FRotator deltaRotator = AimDirection.Rotation() - turret->GetForwardVector().Rotation();
+	UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), deltaRotator.Yaw)
+	turret->Rotate(deltaRotator.Yaw);
 }
 
 // Called when the game starts
@@ -56,7 +65,11 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 		OutLaunchVelocity,
 		StartLocation,
 		hitLocation,
-		launchSpeed
+		launchSpeed,
+		false,
+		.0f,
+		.0f,
+		ESuggestProjVelocityTraceOption::DoNotTrace
 	);
 
 	if (haveAimSolution) 
@@ -64,7 +77,13 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString())
 		MoveBarrel(AimDirection);
+		MoveTurret(AimDirection);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s No aiming solution"), *GetOwner()->GetName())
 	}
 }
 
 void UTankAimingComponent::SetBarrel(UTankBarrel* barrelToSet) { barrel = barrelToSet; }
+void UTankAimingComponent::SetTurret(UTankTurret* turretToSet) { turret = turretToSet; }
