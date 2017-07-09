@@ -77,10 +77,10 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 		MoveBarrel(AimDirection);
 		MoveTurret(AimDirection);
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%s No aiming solution"), *GetOwner()->GetName())
-	}
+	//else
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("%s No aiming solution"), *GetOwner()->GetName())
+	//}
 }
 
 void UTankAimingComponent::SetBarrel(UTankBarrel* barrelToSet) { barrel = barrelToSet; }
