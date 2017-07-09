@@ -43,11 +43,16 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector rayStart = PlayerCameraManager->GetCameraLocation();	
 	FVector rayEnd = rayStart + lookDirection * lineTraceRange;
 
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(GetPawn());
+
 	FHitResult outHitResult;
-	GetWorld()->LineTraceSingleByChannel(outHitResult, rayStart, rayEnd, ECollisionChannel::ECC_PhysicsBody);	
+	GetWorld()->LineTraceSingleByChannel(
+		outHitResult,
+		rayStart,
+		rayEnd,
+		ECollisionChannel::ECC_Visibility,
+		CollisionParams
+	);	
 	tank->AimAt(outHitResult.Location);	
-	//if (outHitResult.GetActor())
-	//{
-	//	UE_LOG(LogTemp, Warning, TEXT("Hit object %s"), *outHitResult.GetActor()->GetName())
-	//}
 }

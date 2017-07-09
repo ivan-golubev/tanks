@@ -12,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -31,8 +31,14 @@ void UTankAimingComponent::MoveTurret(const FVector& AimDirection)
 	if (!turret) { return; }	
 	// set Rotation.Yaw of the TurretMesh
 	FRotator deltaRotator = AimDirection.Rotation() - turret->GetForwardVector().Rotation();
-	UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), deltaRotator.Yaw)
-	turret->Rotate(deltaRotator.Yaw);
+	//UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), deltaRotator.Yaw)
+	float rotation = deltaRotator.Yaw;
+	if (FMath::Abs<float>(rotation) > 180.0f)
+	{
+		rotation = 360.0f - FMath::Abs<float>(rotation);
+		//UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), rotation)
+	}
+	turret->Rotate(rotation);
 }
 
 // Called when the game starts
@@ -44,14 +50,6 @@ void UTankAimingComponent::BeginPlay()
 	
 }
 
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 
 void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 {
@@ -75,7 +73,7 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 	if (haveAimSolution) 
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString())
+		//UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *GetOwner()->GetName(), *AimDirection.ToString())
 		MoveBarrel(AimDirection);
 		MoveTurret(AimDirection);
 	}
