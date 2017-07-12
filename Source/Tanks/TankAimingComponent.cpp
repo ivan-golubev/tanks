@@ -85,3 +85,5 @@ void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 
 void UTankAimingComponent::SetBarrel(UTankBarrel* barrelToSet) { barrel = barrelToSet; }
 void UTankAimingComponent::SetTurret(UTankTurret* turretToSet) { turret = turretToSet; }
+
+UTankBarrel* UTankAimingComponent::GetBarrel() { return barrel; }

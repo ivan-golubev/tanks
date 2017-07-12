@@ -10,6 +10,7 @@
 class UTankBarrel;
 class UTankAimingComponent;
 class UTankTurret;
+class AProjectile;
 
 UCLASS()
 class TANKS_API ATank : public APawn
@@ -23,6 +24,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	UPROPERTY(EditAnywhere, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
+
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrel(UTankBarrel* b);
 	UFUNCTION(BlueprintCallable, Category = Setup)
@@ -37,5 +41,5 @@ protected:
 	float ProjectileLaunchSpeed = 4000.0f; // 1000 m/s
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;		
-	
+
 };

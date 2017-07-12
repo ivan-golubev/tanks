@@ -31,8 +31,8 @@ public:
 	void AimAt(const FVector& hitLocation, float launchSpeed);
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-	void SetBarrel(UTankBarrel*);
+	void SetBarrel(UTankBarrel*);	
 	void SetTurret(UTankTurret*);
-
+	UTankBarrel* GetBarrel();
 	
 };
