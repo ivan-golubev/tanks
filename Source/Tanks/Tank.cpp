@@ -50,10 +50,11 @@ void ATank::Fire()
 	UTankBarrel* barrel = TankAimingComponent->GetBarrel();
 	if (!barrel) { return; }
 
-	GetWorld()->SpawnActor<AProjectile>(
+	auto projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		barrel->GetSocketLocation(FName("ProjectileSocket")),
 		barrel->GetSocketRotation(FName("ProjectileSocket"))
 	);
+	projectile->LaunchProjectile(ProjectileLaunchSpeed);
 }
 
