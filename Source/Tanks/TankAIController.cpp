@@ -11,32 +11,14 @@ void ATankAIController::Tick(float deltaTime)
 	AimToPlayerLocation();
 }
 
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-ATank * ATankAIController::GetPlayerTank() const
-{
-	APlayerController* pc = GetWorld()->GetFirstPlayerController();
-	if (pc != nullptr)
-	{
-		return Cast<ATankPlayerController>(pc)->GetControlledTank();
-	}
-	return nullptr;
-}
-
 void ATankAIController::AimToPlayerLocation() const
 {
-	ATank* playerTank = GetPlayerTank();
-	ATank* controlledAITank = GetControlledTank();
-	if (playerTank != nullptr && controlledAITank != nullptr)
+	ATank* playerTank = Cast<ATankPlayerController>(GetWorld()->GetFirstPlayerController())->GetControlledTank();
+	ATank* controlledAITank = Cast<ATank>(GetPawn());
+	if (playerTank && controlledAITank)
 	{
-		//controlledAITank->AimAt(playerTank->GetActorLocation());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI FAILED to aim the player's tank"))
+		controlledAITank->AimAt(playerTank->GetActorLocation());
+		controlledAITank->Fire();
 	}
 }
 

@@ -20,9 +20,5 @@ public:
 
 protected:
 	void Tick(float) override;
-
-private:
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
 	
 };
