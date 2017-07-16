@@ -26,19 +26,23 @@ void UTankAimingComponent::MoveBarrel(const FVector& AimDirection)
 	barrel->Elevate(deltaRotator.Pitch);
 }
 
+float UTankAimingComponent::To360Degrees(float rot) { return rot > 0 ? rot : rot + 360.0f; }
+
 void UTankAimingComponent::MoveTurret(const FVector& AimDirection)
 {
 	if (!turret) { return; }	
-	// set Rotation.Yaw of the TurretMesh
-	FRotator deltaRotator = AimDirection.Rotation() - turret->GetForwardVector().Rotation();
-	//UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), deltaRotator.Yaw)
-	float rotation = deltaRotator.Yaw;
-	if (FMath::Abs<float>(rotation) > 180.0f)
-	{
-		rotation = 360.0f - FMath::Abs<float>(rotation);
-		//UE_LOG(LogTemp, Warning, TEXT("Rotating the turret: %f"), rotation)
-	}
-	turret->Rotate(rotation);
+	float aimRotation = To360Degrees(AimDirection.Rotation().Yaw);
+	float currentTurretRotation = To360Degrees(turret->GetForwardVector().Rotation().Yaw);
+
+	float relativeRotation = aimRotation - currentTurretRotation;
+	/* calculate the opposite rotation: */
+	float oppositeRelativeRotation = (360.0f - FMath::Abs<float>(relativeRotation)) * FMath::Sign(relativeRotation) * (-1);
+	/* rotate the turret using the shortest path */
+	turret->Rotate(
+		FMath::Abs<float>(relativeRotation) < FMath::Abs<float>(oppositeRelativeRotation)
+		? relativeRotation
+		: oppositeRelativeRotation
+	);
 }
 
 // Called when the game starts

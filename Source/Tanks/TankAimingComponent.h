@@ -22,6 +22,7 @@ private:
 
 	void MoveBarrel(const FVector& AimDirection);
 	void MoveTurret(const FVector& AimDirection);
+	float To360Degrees(float YawRotation);
 
 protected:
 	// Called when the game starts
