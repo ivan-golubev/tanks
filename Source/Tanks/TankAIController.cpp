@@ -17,9 +17,8 @@ void ATankAIController::AimToPlayerLocation() const
 	ATank* controlledAITank = Cast<ATank>(GetPawn());
 	if (playerTank && controlledAITank)
 	{
-		// TODO: uncomment this to aim at player
-		//controlledAITank->AimAt(playerTank->GetActorLocation());
-		// TODO: uncomment this to allow AI attacking the player
+		controlledAITank->AimAt(playerTank->GetActorLocation());
+		// Uncomment to let the AI tanks attack the player
 		//controlledAITank->Fire();
 	}
 }
