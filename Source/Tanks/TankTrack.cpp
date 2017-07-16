@@ -6,8 +6,8 @@
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s throttling: %f"), *GetName(), throttle)
 	auto ForceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
+	UE_LOG(LogTemp, Warning, TEXT("Applying force %s to location: %s"), *ForceApplied.ToString(), *GetComponentLocation().ToString())
 	Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent())->AddForceAtLocation(
 		ForceApplied, 
 		GetComponentLocation()
