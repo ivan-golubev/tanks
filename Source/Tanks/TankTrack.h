@@ -20,8 +20,8 @@ public:
 	void SetThrottle(float throttle);
 	
 	UPROPERTY(EditDefaultsOnly)
-	float TrackMaxDrivingForce = 88880.0f * 500.0f; // DrivingForce [N] = mass [kg] * acceleration [m/s^2]
+	float TrackMaxDrivingForce = 88880.0f * 250.0f; // DrivingForce [N] = mass [kg] * acceleration [m/s^2]
 	//  = 40,000 kg * 2.222 m/s^2 = 88880
 	// acceleration: http://www.wolframalpha.com/input/?i=0+to+80+km+per+hour+in+10+seconds
-	// additionally, since it's a game, let's multiply it by 500 )))))) LOL
+	// additionally, since it's a game, let's multiply it by 250 )))))) LOL
 };

@@ -6,11 +6,14 @@
 
 void UTankTrack::SetThrottle(float throttle)
 {
-	auto ForceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
-	UE_LOG(LogTemp, Warning, TEXT("Applying force %s to location: %s"), *ForceApplied.ToString(), *GetComponentLocation().ToString())
-	Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent())->AddForceAtLocation(
-		ForceApplied, 
-		GetComponentLocation()
-	);
+	if (throttle != 0.0f)
+	{
+		auto ForceApplied = GetForwardVector() * throttle * TrackMaxDrivingForce;
+		UE_LOG(LogTemp, Warning, TEXT("Applying force %s to location: %s"), *ForceApplied.ToString(), *GetComponentLocation().ToString())
+		Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent())->AddForceAtLocation(
+				ForceApplied,
+				GetComponentLocation()
+		);
+	}
 }
 
