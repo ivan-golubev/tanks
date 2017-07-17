@@ -16,9 +16,13 @@ class TANKS_API ATankAIController : public AAIController
 	GENERATED_BODY()
 	
 public:
-	void AimToPlayerLocation() const;
+	void AimToPlayerLocation();
 
 protected:
 	void Tick(float) override;
-	
+
+	// Acceptance Radius = 30 meters - how close the AI tank can get to the player
+	UPROPERTY(EditDefaultsOnly)
+	float AcceptanceRadius = 3000.0f;
+
 };
