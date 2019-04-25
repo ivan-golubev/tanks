@@ -34,6 +34,9 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto tankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
 	auto moveDirection = MoveVelocity.GetSafeNormal();
 	auto moveForward = FVector::DotProduct(tankForward, moveDirection);
+
+	auto crossZ = FVector::CrossProduct(tankForward, moveDirection).Z;
 	IntendMoveForward(moveForward);
+	IntendRotateRight(crossZ);
 }
 
