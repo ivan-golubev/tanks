@@ -5,14 +5,9 @@
 #include "TankAIController.h"
 #include "TankPlayerController.h"
 
-void ATankAIController::Tick(float deltaTime) 
+void ATankAIController::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
-	AimToPlayerLocation();
-}
-
-void ATankAIController::AimToPlayerLocation()
-{
 	ATank* playerTank = Cast<ATankPlayerController>(GetWorld()->GetFirstPlayerController())->GetControlledTank();
 	ATank* controlledAITank = Cast<ATank>(GetPawn());
 	if (playerTank && controlledAITank)
@@ -21,7 +16,7 @@ void ATankAIController::AimToPlayerLocation()
 
 		controlledAITank->AimAt(playerTank->GetActorLocation());
 		// Uncomment to let the AI tanks attack the player
-		//controlledAITank->Fire();
+		controlledAITank->Fire();
 	}
 }
 
