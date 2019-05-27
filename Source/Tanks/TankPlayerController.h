@@ -12,14 +12,11 @@
 UCLASS()
 class TANKS_API ATankPlayerController : public APlayerController
 {
-	GENERATED_BODY()
-	
+	GENERATED_BODY()	
+
 protected:	
 	void BeginPlay() override;
 	void Tick(float) override;
-
-public:
-	ATank* GetControlledTank() const;
 		
 private:	
 	UPROPERTY(EditDefaultsOnly)
@@ -28,6 +25,9 @@ private:
 	float CrossHairYLocation = 0.5f;
 	UPROPERTY(EditDefaultsOnly)
 	float lineTraceRange = 1000000.0f; // 10 kilometers
-
 	void AimTowardsCrosshair(); // rotate the barrel towards the crosshair
+
+public:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControlledTank() const;
 };
