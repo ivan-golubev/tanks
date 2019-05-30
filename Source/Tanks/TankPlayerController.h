@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
+class UTankAimingComponent;
+
 /**
  * 
  */
@@ -15,6 +17,8 @@ class TANKS_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()	
 
 protected:	
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void OnAimingComponentInit(UTankAimingComponent* aimComponent);
 	void BeginPlay() override;
 	void Tick(float) override;
 		
@@ -29,5 +33,5 @@ private:
 
 public:
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-		ATank* GetControlledTank() const;
+	ATank* GetControlledTank() const;
 };

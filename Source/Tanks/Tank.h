@@ -19,15 +19,13 @@ class TANKS_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this pawn's properties
-	ATank();
 	void AimAt(FVector);
 	
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
 
 	UFUNCTION(BlueprintCallable)
-	void Fire();
+	void Fire();	
 
 protected:	
 	UPROPERTY(BlueprintReadOnly)
@@ -41,4 +39,9 @@ protected:
 	float ReloadTimeInSeconds = 3.0f;
 	
 	double LastFireTime = 0.0f;
+
+private:
+	// Sets default values for this pawn's properties
+	ATank();
+	virtual void BeginPlay();
 };

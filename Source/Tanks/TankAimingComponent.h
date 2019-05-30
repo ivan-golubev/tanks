@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
-UENUM()
+UENUM(BlueprintType)
 enum class EFiringStatus: uint8
 {
 	Reloading,
@@ -34,9 +34,9 @@ private:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Setup")
-	EFiringStatus firingStatus = EFiringStatus::Reloading;
+	EFiringStatus firingStatus = EFiringStatus::Aiming;
 
-public:			
+public:		
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Init(UTankBarrel* barrel, UTankTurret* turret);
 	void AimAt(const FVector& hitLocation, float launchSpeed);
