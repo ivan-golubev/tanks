@@ -8,7 +8,7 @@
 
 void UTankAimingComponent::MoveBarrel(const FVector& AimDirection)
 {
-	if (!barrel) { return; }
+	if (!ensure(barrel)) { return; }
 	// set Rotation.Pitch of the Barrel
 	FRotator deltaRotator = AimDirection.Rotation() - barrel->GetForwardVector().Rotation();
 	barrel->Elevate(deltaRotator.Pitch);
@@ -18,7 +18,7 @@ float UTankAimingComponent::To360Degrees(float rot) { return rot > 0 ? rot : rot
 
 void UTankAimingComponent::MoveTurret(const FVector& AimDirection)
 {
-	if (!turret) { return; }	
+	if (!ensure(turret)) { return; }	
 	float aimRotation = To360Degrees(AimDirection.Rotation().Yaw);
 	float currentTurretRotation = To360Degrees(turret->GetForwardVector().Rotation().Yaw);
 
@@ -42,7 +42,7 @@ void UTankAimingComponent::Init(UTankBarrel* b, UTankTurret* t)
 
 void UTankAimingComponent::AimAt(const FVector& hitLocation, float launchSpeed)
 {
-	if (!barrel) { return; }
+	if (!ensure(barrel)) { return; }
 
 	FVector OutLaunchVelocity;
 	FVector StartLocation = barrel->GetSocketLocation(FName("ProjectileSocket"));

@@ -13,7 +13,9 @@ void UTankMovementComponent::Init(UTankTrack* LeftTrackToSet, UTankTrack* RightT
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if (LeftTrack && RightTrack && Throw != 0.0f) {
+	if (!ensure(LeftTrack && RightTrack))
+		return;
+	if (Throw != 0.0f) {
 		//UE_LOG(LogTemp, Warning, TEXT("Intend Move Forward throw: %f"), Throw)
 		LeftTrack->SetThrottle(Throw);
 		RightTrack->SetThrottle(Throw);
@@ -22,7 +24,9 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendRotateRight(float Throw)
 {
-	if (LeftTrack && RightTrack && Throw != 0.0f) {
+	if (!ensure(LeftTrack && RightTrack))
+		return;
+	if (Throw != 0.0f) {
 		//UE_LOG(LogTemp, Warning, TEXT("Intend Rotate right throw: %f"), Throw)
 		LeftTrack->SetThrottle(Throw);
 		RightTrack->SetThrottle(-Throw);

@@ -31,7 +31,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	auto tank = GetControlledTank();
-	if (!tank) { return; }
+	if (!ensure(tank)) { return; }
 	
 	int32 screenSizeX, screenSizeY;
 	GetViewportSize(screenSizeX, screenSizeY);
