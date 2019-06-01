@@ -1,20 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Tanks.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
 
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	auto aimComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (aimComponent) {
-		OnAimingComponentInit(aimComponent);
-		UE_LOG(LogTemp, Display, TEXT("ATankPlayerController: aiming component found"))
-	}
-	else
-		UE_LOG(LogTemp, Display, TEXT("ATankPlayerController: aiming component not found"))
+	auto aimComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(aimComponent)) 
+		OnAimingComponentInit(aimComponent);	
 }
 
 void ATankPlayerController::Tick(float deltaTime)
@@ -23,15 +18,10 @@ void ATankPlayerController::Tick(float deltaTime)
 	AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	auto tank = GetControlledTank();
-	if (!ensure(tank)) { return; }
+	auto tankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	if (!ensure(tankAimingComponent)) { return; }
 	
 	int32 screenSizeX, screenSizeY;
 	GetViewportSize(screenSizeX, screenSizeY);
@@ -54,5 +44,5 @@ void ATankPlayerController::AimTowardsCrosshair()
 		ECollisionChannel::ECC_Visibility,
 		CollisionParams
 	);	
-	tank->AimAt(outHitResult.Location);	
+	tankAimingComponent->AimAt(outHitResult.Location);
 }

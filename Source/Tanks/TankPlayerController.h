@@ -30,8 +30,4 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float lineTraceRange = 1000000.0f; // 10 kilometers
 	void AimTowardsCrosshair(); // rotate the barrel towards the crosshair
-
-public:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
 };
