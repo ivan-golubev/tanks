@@ -7,7 +7,9 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-	auto aimComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	auto tank = GetPawn();
+	if (!tank) { return; }
+	auto aimComponent = tank->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(aimComponent)) 
 		OnAimingComponentInit(aimComponent);	
 }
@@ -20,7 +22,9 @@ void ATankPlayerController::Tick(float deltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	auto tankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+	auto tank = GetPawn();
+	if (!tank) { return; }
+	auto tankAimingComponent = tank->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(tankAimingComponent)) { return; }
 	
 	int32 screenSizeX, screenSizeY;
@@ -34,7 +38,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector rayEnd = rayStart + lookDirection * lineTraceRange;
 
 	FCollisionQueryParams CollisionParams;
-	CollisionParams.AddIgnoredActor(GetPawn());
+	CollisionParams.AddIgnoredActor(tank);
 
 	FHitResult outHitResult;
 	GetWorld()->LineTraceSingleByChannel(

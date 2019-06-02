@@ -24,4 +24,12 @@ public:
 	//  = 40,000 kg * 2.222 m/s^2 = 88880
 	// acceleration: http://www.wolframalpha.com/input/?i=0+to+80+km+per+hour+in+10+seconds
 	// additionally, since it's a game, let's multiply it by 250 )))))) LOL
+
+private:
+	UTankTrack();
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void ApplySidewaysForce();
+	void DriveTank();
+	float Throttle = 0.0f;
 };

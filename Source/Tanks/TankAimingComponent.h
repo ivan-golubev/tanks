@@ -27,17 +27,22 @@ class TANKS_API UTankAimingComponent : public UActorComponent
 private:
 	UTankBarrel* barrel = nullptr;
 	UTankTurret* turret = nullptr;
+	bool isBarrelMoving;
 
 	void MoveBarrel(const FVector& AimDirection);
-	void MoveTurret(const FVector& AimDirection);
+	void MoveTurret(const FVector& AimDirection);	
 	float To360Degrees(float YawRotation);
 
-protected:
+protected:	
+	UTankAimingComponent();
+	void BeginPlay();
+	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 	UPROPERTY(EditAnywhere, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBlueprint = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Setup")
-	EFiringStatus firingStatus = EFiringStatus::Aiming;
+	EFiringStatus firingStatus = EFiringStatus::Reloading;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ProjectileLaunchSpeed = 4000.0f; // 1000 m/s
