@@ -41,12 +41,14 @@ void ATankPlayerController::AimTowardsCrosshair()
 	CollisionParams.AddIgnoredActor(tank);
 
 	FHitResult outHitResult;
-	GetWorld()->LineTraceSingleByChannel(
+	bool wasHit = GetWorld()->LineTraceSingleByChannel(
 		outHitResult,
 		rayStart,
 		rayEnd,
 		ECollisionChannel::ECC_Visibility,
 		CollisionParams
 	);	
-	tankAimingComponent->AimAt(outHitResult.Location);
+	if (wasHit) {
+		tankAimingComponent->AimAt(outHitResult.Location);
+	}
 }
